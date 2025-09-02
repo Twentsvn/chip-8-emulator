@@ -1,4 +1,4 @@
-# Chip8 Emulator
+# Chip8 Interpreter
 
 ## How to build
 ```bash
