@@ -83,17 +83,25 @@ bool CLIdisplay::ProcessInput(uint8_t * keys){
     
 
 #ifdef _WIN32
-    if (_kbhit()){
+    if (_kbhit()){  // returns zero if no value pressed
         keyPressed = _getch();
+          if(keyPressed == 'p') {
+             quit = true ;
+         }
+        auto it = Clikeymap.find(keyPressed);
+        if(it != Clikeymap.end()){ 
+            keys[it->second] = 1;
+            cycledecay = 12;
+        }
+
     }
 #else
     napms(2);  // used dor sleep in milisecond
     keyPressed = getch();
-#endif
-
-   // printw("%c",keyPressed); refresh();
+    
     if( keyPressed != ERR ){
        
+       // printw("%c",keyPressed); refresh();
          if(keyPressed == 'p') {
              quit = true ;
          }
@@ -108,12 +116,13 @@ bool CLIdisplay::ProcessInput(uint8_t * keys){
         
     }
     
-    
+
+#endif
 
     return quit;
 }
 
-void PrintKeys(const uint8_t* keys) {
+void PrintKeys(const uint8_t* keys) {   // using cout in ncurses is bad since it distortes the display!!
     std::cout << "Chip-8 Keys State:\r\n";
     std::cout << "[1] [2] [3] [C]\r\n";
     printf(" %d   %d   %d   %d\r\n", keys[0x1], keys[0x2], keys[0x3], keys[0xC]);

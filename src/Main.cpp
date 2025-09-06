@@ -14,7 +14,7 @@ int main(int argc , char ** argv){
         std::cerr << "Usage : " << argv[0] << "<DisplayType> <Scale> <Delay> <ROM> \n CLI = 0 , Rendered Display = 1 \n ";
         std::exit(EXIT_FAILURE);
     }
-
+    
     int disType ;
     int videoScale ;
     int cycleDelay ;
@@ -31,6 +31,7 @@ int main(int argc , char ** argv){
         return -1;
     }
 
+    if(disType > 1 || disType < 0 ){std::cerr << "Invalid <DisplayType>. Please use 0 or 1."; std::exit(EXIT_FAILURE);}
 
     #ifndef _WIN32
         initscr();  // start ncurses
@@ -70,7 +71,7 @@ int main(int argc , char ** argv){
             quit = CLIdisplay::ProcessInput(chip8.keypad);
         }
        
-        std::this_thread::sleep_for(std::chrono::milliseconds(cycleDelay));
+        std::this_thread::sleep_for(std::chrono::milliseconds(cycleDelay)); // we can do #include <windows.h> and do Sleep(cycleDelay); for same for windows ofc 
 
              // only run after cycle delay 
             //lastCycleTime = currentTime;
