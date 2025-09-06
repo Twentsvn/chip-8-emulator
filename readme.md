@@ -15,7 +15,7 @@ cmake --build .
 
 - Two test files are provided for testing the interpreter. 
 
-### Not tested on windows, works fine on Linux 
+### Works on both Windows and Linux
 
 ## Resources
 - https://github.com/dmatlack/chip8/tree/master/roms/games     ``For test rom``
